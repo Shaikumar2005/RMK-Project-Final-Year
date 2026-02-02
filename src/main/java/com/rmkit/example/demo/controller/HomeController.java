@@ -36,15 +36,13 @@ public class HomeController {
         return "redirect:/login";
     }
     
+    
     @GetMapping("/staff-login")
     public String staffLoginPage() {
         return "staff-login"; // create templates/staff-login.html
     }
 
-    @GetMapping("/forgot-password")
-    public String forgotPasswordPage() {
-        return "forgot-password"; // create templates/forgot-password.html
-    }
+   
 
 @GetMapping("/logout")
 public String logout(HttpSession session, RedirectAttributes ra) {

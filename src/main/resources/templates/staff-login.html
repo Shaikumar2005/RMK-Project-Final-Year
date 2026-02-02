@@ -1,9 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Staff Login</title></head>
-<body style="font-family:Segoe UI,Arial;margin:40px;">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Staff Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f2f2f2; }
+    .box { width: 360px; margin: 80px auto; padding: 24px; background:#fff; box-shadow: 0 0 10px rgba(0,0,0,.1); border-radius: 8px; }
+    input, button { width:100%; padding:10px; margin:8px 0; box-sizing: border-box; }
+    .remember { display:flex; align-items:center; gap:8px; font-size: 14px; margin:6px 0 10px; }
+    .links { text-align:center; margin-top:10px; }
+    a { text-decoration:none; color:#1976d2; }
+    .msg-ok { color:#0f5132; background:#d1e7dd; padding:8px 12px; border-radius:6px; margin-bottom:10px; }
+    .msg-err { color:#842029; background:#f8d7da; padding:8px 12px; border-radius:6px; margin-bottom:10px; }
+  </style>
+</head>
+<body>
+<div class="box">
   <h2>Staff Login</h2>
-  <p>This is a placeholder. Implement staff authentication here.</p>
-  @{/login}Back to Login</a>
+
+  <!-- Optional messages -->
+  <p th:if="${msg}" class="msg-ok" th:text="${msg}">You have been logged out.</p>
+  <p th:if="${error}" class="msg-err" th:text="${error}">Invalid username or password.</p>
+
+  <!-- Post to your existing /login handler -->
+  <form th:action="@{/login}" method="post">
+    <!-- Guard the CSRF field so it doesn't crash when Security/CSRF is not present -->
+    <input type="hidden" th:if="${_csrf != null}"
+           th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <input type="text" name="username" placeholder="Staff username" required />
+    <input type="password" name="password" placeholder="Password" required />
+
+    <label class="remember">
+      <input type="checkbox" name="remember-me" />
+      Remember me
+    </label>
+
+    <button type="submit">Login as Staff</button>
+  </form>
+
+  <div class="links">
+    <a th:href="@{/forgot-password}">Forgot password?</a>
+    &nbsp;|&nbsp;
+    <a th:href="@{/login}">Back to User Login</a>
+  </div>
+</div>
 </body>
 </html>
