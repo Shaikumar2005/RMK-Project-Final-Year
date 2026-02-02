@@ -165,6 +165,15 @@
         <button type="submit" class="btn-primary">Login as Staff</button>
     </form>
 
+    <!-- ✅ Added: Register as Staff button (no other changes) -->
+    <a th:href="@{/staff/register}">
+        <button type="button"
+                class="btn-primary"
+                style="margin-top:8px; background:#ffffff; color:#1976d2; border:1px solid #1976d2;">
+            Register as Staff
+        </button>
+    </a>
+
     <div class="links">
         <a th:href="@{/forgot-password}">Forgot password?</a>
         &nbsp;|&nbsp;

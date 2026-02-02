@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Our Faculty</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --text: #1f2a37;
+      --muted: #6b7280;
+      --accent: #1976d2;
+      --border: #e5e7eb;
+    }
+
+    body{font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);margin:0;}
+    .container{max-width:1100px;margin:0 auto;padding:24px;}
+    h1{margin:0 0 8px;color:var(--text);font-weight:700;}
+    .subtitle{color:var(--muted);margin:0 0 18px;font-size:14px;}
+    .section{margin-top:24px;}
+    .section h2{margin:0 0 10px;color:#111827;font-size:20px;border-left:4px solid var(--accent);padding-left:8px;}
+    .grid{display:grid;grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));gap:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.04);padding:14px;text-align:center;transition:transform .15s ease, box-shadow .15s ease;}
+    .card:hover{transform: translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);}
+    .photo{width:120px;height:120px;margin:6px auto 10px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;background:#eef2f7;display:block;}
+    .name{font-weight:600;color:var(--text);margin:2px 0;font-size:16px;}
+    .line{color:var(--muted);font-size:13px;margin:2px 0;}
+    .email a{color:var(--accent);text-decoration:none;font-size:13px;word-break:break-all;}
+    .email a:hover{text-decoration:underline;}
+    .placeholder{width:120px;height:120px;border-radius:50%;border:2px solid #e2e8f0;background:#e9eef5;display:flex;align-items:center;justify-content:center;margin:6px auto 10px;font-size:42px;color:#8aa0b6;}
+    .empty-note{color:var(--muted);font-size:14px;padding:16px 0;border:1px dashed var(--border);border-radius:8px;background:#fff;text-align:center;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Our Faculty</h1>
+    <p class="subtitle" th:text="|Total: ${totalStaff} staff|">Total: 0 staff</p>
+
+    <div th:if="${sections == null || #maps.isEmpty(sections)}" class="empty-note">
+      No faculty entries in code. Please add them in <code>FacultyStaticController#getFaculty()</code>.
+    </div>
+
+    <div th:each="entry : ${sections.entrySet()}" class="section">
+      <h2 th:text="${entry.key}">Professor</h2>
+      <div class="grid">
+        <div class="card" th:each="s : ${entry.value}">
+      <img th:src="@{${s.image}}" alt="Faculty Photo" class="photo"
+     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+<div class="placeholder" style="display:none;">👤</div>
+
+          <div class="name" th:text="${s.fullName}">Faculty Name</div>
+          <div class="line" th:text="${s.department}">Information Technology</div>
+          <div class="email" th:if="${s.email}">
+            <a th:href="|mailto:${s.email}|" th:text="${s.email}">name@rmkec.ac.in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
