@@ -5,19 +5,19 @@ public class StaffView {
     private final String designation;
     private final String department;
     private final String email;
-    private final String image;
+    private final String photoUrl;
 
-    public StaffView(String fullName, String designation, String department, String email, String image) {
+    public StaffView(String fullName, String designation, String department, String email, String photoUrl) {
         this.fullName = fullName;
         this.designation = designation;
         this.department = department;
         this.email = email;
-        this.image = image;
+        this.photoUrl = photoUrl;
     }
 
     public String getFullName() { return fullName; }
     public String getDesignation() { return designation; }
     public String getDepartment() { return department; }
     public String getEmail() { return email; }
-    public String getImage() { return image; }
+    public String getPhotoUrl() { return photoUrl; }
 }
